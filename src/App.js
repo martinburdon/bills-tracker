@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import sampleBills from './sample-data.js';
+import AddBillForm from './components/AddBillForm.jsx';
+import BillItem from './components/BillItem.jsx';
 
 class App extends Component {
+  state = {
+    bills: []
+  };
+
+  addBill = bill => {
+    const bills = [...this.state.bills, bill];
+    this.setState({ bills });
+  }
+
+  componentDidMount() {
+    this.setState({ bills: sampleBills });
+  }
+
   render() {
+    const billsList = this.state.bills.map((bill, index) => <BillItem key={index} {...bill} />);
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <>
+        <AddBillForm addBill={this.addBill} />
+        <ul className="bills-list">
+          {billsList}
+        </ul>
+      </>
     );
   }
 }

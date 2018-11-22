@@ -8,6 +8,20 @@ const outgoingSchema = new mongoose.Schema({
     trim: true,
     required: 'Please enter a name'
   },
+  description: {
+    type: String,
+    trim: true
+  },
+  price: {
+    type: Number,
+    required: 'Please enter a price',
+    default: 0
+  },
+  type: {
+    type: String,
+    required: 'Please select a type',
+    default: 'monthly'
+  },
   slug: String
 });
 

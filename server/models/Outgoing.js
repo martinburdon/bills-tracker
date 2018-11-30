@@ -19,7 +19,7 @@ const outgoingSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    required: 'Please select a type',
+    required: 'Please select a type (monthly/annually)',
     default: 'monthly'
   },
   slug: String

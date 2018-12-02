@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 const slug = require('slugs');
 
-const outgoingSchema = new mongoose.Schema({
+const outgoingSchema = new Schema({
   name: {
     type: String,
     trim: true,
@@ -22,7 +23,12 @@ const outgoingSchema = new mongoose.Schema({
     required: 'Please select a type (monthly/annually)',
     default: 'monthly'
   },
-  slug: String
+  slug: String,
+  author: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: 'You must supply an author'
+  }
 });
 
 outgoingSchema.pre('save', async function(next) {

@@ -8,6 +8,8 @@ exports.getOutgoings = async (req, res) => {
 };
 
 exports.addOutgoing = async (req, res) => {
+  // console.log('💥 req ', req.user);
+  // req.body.author = req.user._id;
   await (new Outgoing(req.body)).save();
   res.send(`${req.body.name} created`);
 };

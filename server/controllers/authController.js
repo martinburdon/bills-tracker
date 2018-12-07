@@ -1,11 +1,6 @@
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
-// exports.login = (passport.authenticate('local'), (req, res) => {
-//   console.log('💥 ', req.user);
-//   res.send(`${req.body.username} logged in`);
-// });
-
 exports.login = async (req, res, next) => {
   passport.authenticate('login', async (err, user, info) => {
     try {
@@ -20,7 +15,7 @@ exports.login = async (req, res, next) => {
         //user password in the token so we pick only the email and id
         const body = { _id : user._id, email : user.email };
         //Sign the JWT token and populate the payload with the user email and id
-        const token = jwt.sign({ user : body },'top_secret');
+        const token = jwt.sign({ user : body }, 'top_secret');
         //Send back the token to the user
         return res.json({ token });
       });
@@ -30,8 +25,7 @@ exports.login = async (req, res, next) => {
   })(req, res, next);
 };
 
-// When the user sends a post request to this route, passport authenticates the user based on the
-// middleware created previously
+// When the user sends a post request to this route, passport authenticates the user based on the middleware created previously
 exports.register = async (req, res, next) => {
   passport.authenticate('register', { session: false }, async (err, user, info) => {
     try {

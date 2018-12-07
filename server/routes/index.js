@@ -3,6 +3,7 @@ const router = express.Router();
 const outgoingController = require('../controllers/outgoingController');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
+const passport = require('passport');
 
 // Outgoings
 router.get('/api/outgoings', outgoingController.getOutgoings);

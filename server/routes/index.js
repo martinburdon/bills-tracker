@@ -10,14 +10,11 @@ router.post('/api/outgoings', outgoingController.addOutgoing);
 router.delete('/api/outgoings', outgoingController.deleteOutgoing);
 router.put('/api/outgoings', outgoingController.updateOutgoing);
 
-// Users
-router.post('/api/users',
-  userController.validateRegister,
-  userController.createUser,
-  authController.login
-);
+// User
+router.get('/api/profile', userController.profile);
 
 // Auth
+router.post('/api/register', authController.register);
 router.post('/api/logout', authController.logout);
 router.post('/api/login', authController.login);
 router.post('/api/loginCheck', authController.isLoggedIn);

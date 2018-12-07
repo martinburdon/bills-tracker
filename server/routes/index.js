@@ -18,6 +18,5 @@ router.get('/api/profile', userController.profile);
 router.post('/api/register', authController.register);
 router.post('/api/logout', authController.logout);
 router.post('/api/login', authController.login);
-router.post('/api/loginCheck', authController.isLoggedIn);
 
 module.exports = router;

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res, next) => {
   passport.authenticate('login', async (err, user, info) => {
-    // try {
+    try {
       if (err || !user) {
         return next({
           message: 'Incorrect login details'
@@ -14,15 +14,15 @@ exports.login = async (req, res, next) => {
         if( error ) return next(error)
         //We don't want to store the sensitive information such as the
         //user password in the token so we pick only the email and id
-        const body = { _id : user._id, email : user.email };
+        const body = { _id: user._id, email: user.email, name: user.name };
         //Sign the JWT token and populate the payload with the user email and id
         const token = jwt.sign({ user : body }, 'top_secret');
         //Send back the token to the user
-        return res.json({ token });
+        return res.json({ token, user: body });
       });
-    // } catch (error) {
-    //   return next(error);
-    // }
+    } catch (error) {
+      return next(error);
+    }
   })(req, res, next);
 };
 
@@ -49,14 +49,4 @@ exports.register = async (req, res, next) => {
 exports.logout = (req, res) => {
   req.logout();
   res.send('Logged out');
-};
-
-exports.isLoggedIn = (req, res) => {
-  console.log('💥 ', req.user);
-  if (req.isAuthenticated()) {
-    res.send('Logged in');
-  } else {
-    res.send('You are not logged in');
-  }
-
 };

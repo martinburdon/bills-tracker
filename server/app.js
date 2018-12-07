@@ -7,10 +7,13 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 const routes = require('./routes/index');
+const cors = require('cors')
 require('./handlers/passport.js');
 
 // Create our Express app
 const app = express();
+
+app.use(cors());
 
 // Takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json());

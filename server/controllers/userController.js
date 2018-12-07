@@ -5,14 +5,16 @@ exports.profile = async (req, res, next) => {
   passport.authenticate('jwt', { session : false }, async (err, user, info) => {
     try {
       if (!user) {
-        const error = new Error('Please login');
-        return next(error);
+        return next({
+          message: 'Please login',
+          status: 401
+        });
       }
 
       res.json({
         message : 'You made it to the secure route',
-        user: req.user,
-        token: req.query.secret_token
+        user,
+        token: req.body.token
       });
     } catch (error) {
       return next(error);

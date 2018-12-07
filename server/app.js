@@ -28,7 +28,7 @@ app.use('/', routes);
 //Handle errors
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.json({ error : err });
+  res.json({ error: err });
 });
 
 // done! we export it so we can start the site in start.js

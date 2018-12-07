@@ -3,13 +3,14 @@ const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res, next) => {
   passport.authenticate('login', async (err, user, info) => {
-    try {
+    // try {
       if (err || !user) {
-        const error = new Error('An Error occured');
-        return next(error);
+        return next({
+          message: 'Incorrect login details'
+        });
       }
 
-      req.login(user, { session : false }, async (error) => {
+      req.login(user, { session: false }, async (error) => {
         if( error ) return next(error)
         //We don't want to store the sensitive information such as the
         //user password in the token so we pick only the email and id
@@ -19,9 +20,9 @@ exports.login = async (req, res, next) => {
         //Send back the token to the user
         return res.json({ token });
       });
-    } catch (error) {
-      return next(error);
-    }
+    // } catch (error) {
+    //   return next(error);
+    // }
   })(req, res, next);
 };
 
@@ -30,8 +31,9 @@ exports.register = async (req, res, next) => {
   passport.authenticate('register', { session: false }, async (err, user, info) => {
     try {
       if (err || !user) {
-        const error = new Error(`An Error occured: ${err}`);
-        return next(error);
+        return next({
+          message: err.errmsg
+        });
       }
 
       res.json({
